@@ -1,0 +1,91 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build-freetype:
+    name: 'Build freetype ${{ matrix.os }} ${{ matrix.ark }}'
+    env:
+      VCPKG_DISABLE_METRICS: "1"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        build_type: [shared]
+        ark: [x86, x64, arm64]
+        exclude:
+          - os: macos-latest
+            ark: x86
+            build_type: shared
+          - os: ubuntu-latest
+            ark: x86
+            build_type: shared
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Get CMake
+      uses: symbitic/install-cmake@master
+      if: ${{ matrix.os == 'macos-latest' }}
+
+    - name: Install Arm64 Compiler
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: sudo apt-get install -qy binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+      
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+      id: strings
+      shell: bash
+      run: |
+        TOS="${{ runner.os }}"
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        TRIPLET="$(echo "build-triplet=${{ matrix.ark }}-${TOS/macOS/osx}-${{ matrix.build_type }}" | tr '[:upper:]' '[:lower:]')"
+        echo "$TRIPLET" >> "$GITHUB_OUTPUT"
+
+    - uses: dkershner6/switch-case-action@v1
+      id: switch-case
+      with:
+        default: "linux"
+        conditionals-with-values: |
+           ${{ matrix.os == 'windows-latest' }} => win
+           ${{ matrix.os == 'macos-latest' }} => osx
+
+    - name: 'Install vcpkg'
+      uses: "./.github/workflows/templates/vcpkg" #Just need to pass the path from action
+      with:
+        version: 2023.11.20
+
+    - name: 'Install freetype Package'
+      run: vcpkg install freetype:${{ steps.strings.outputs.build-triplet }} --overlay-triplets='${{ github.workspace }}/./overlay/trypletes/' --overlay-ports='${{ github.workspace }}/./overlay/ports/'
+
+    - name: 'Export freetype Package'
+      run: vcpkg export freetype:${{ steps.strings.outputs.build-triplet }} --raw --output-dir=${{ runner.temp }}/builds  --overlay-triplets='${{ github.workspace }}/./overlay/trypletes/' --overlay-ports='${{ github.workspace }}/./overlay/ports/' --output=freetype
+
+    - name: 'Copy files'
+      uses: "./.github/workflows/templates/xcopy"
+      with:
+        source: ${{ runner.temp }}/builds/freetype/installed/${{ steps.strings.outputs.build-triplet }}
+        destination: ${{ steps.strings.outputs.build-output-dir }}/${{ steps.switch-case.outputs.value }}-${{ matrix.ark }}
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.3
+      with:
+      # Artifact name
+        name: 'Build Freetype' # optional, default is artifact
+        path: |
+          ${{ steps.strings.outputs.build-output-dir }}/
+
+  build-library:
+    name: 'Build & Test'
+    needs: [build-freetype]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Build freetype artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: 'Build Freetype'
+        path: runtimes
+
+    - name: Display structure of downloaded files
+      run: ls -R

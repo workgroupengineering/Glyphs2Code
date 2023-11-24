@@ -1,0 +1,31 @@
+name: 'Copy file'
+description: 'Copy file'
+
+# Were we can define the inputs that our action will accept
+inputs:
+    source: 
+        required: true
+    destination:
+        repeated: true
+    ignoreError:
+        required: false
+
+runs:
+  using: "composite"  
+  # Defining the action steps(Just one step to be simple)
+  steps:
+
+    - name: Copy Windows
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: |
+        mkdir "${{ inputs.destination }}/native"
+        cp ${{ inputs.source }}\bin\*.* ${{ inputs.destination }}\native
+
+    - name: 'Copy ${{ runner.os }}'
+      if: runner.os != 'Windows'
+      shell: bash
+      run: |
+        mkdir -p  ${{ inputs.destination }}/native
+        cp ${{ inputs.source }}/lib/*.* ${{ inputs.destination }}/native
+    

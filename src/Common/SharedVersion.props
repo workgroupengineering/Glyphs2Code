@@ -1,0 +1,19 @@
+<Project DefaultTargets="Build" 
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Version>1.0</Version>
+    <Authors>Workgroupengineering</Authors>
+    <Copyright>Copyright 2013-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; Workgroupengineering</Copyright>
+    <PackageProjectUrl>https://github.com/workgroupengineering</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AvaloniaUI/Avalonia/</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageDescription>C# Source Genenrator theth generare class with the Unicode values of the glyph icons in your font file (.ttf/.otf/.woff).</PackageDescription>
+    <PackageTags>Source Generator;Fonts Icon;True Type;.woff;.otf</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup Label="PackageIcon">
+    <None Include="$(MSBuildThisFileDirectory)/../../Assets/Icon.png" Pack="true" Visible="false" PackagePath=""/>
+  </ItemGroup>
+</Project>

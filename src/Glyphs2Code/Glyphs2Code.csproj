@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../Common/SharedVersion.props" />
+  <Import Project="../Common/SourceLink.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <DebugType>embedded</DebugType>
+    <IsPackable>true</IsPackable>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\GitHub\Glyphs2Code\we.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\..\we.snk" Link="we.snk"/>
+    <None Include="..\..\runtimes\**\*" Pack="true" >
+      <Link>runtimes\%(RecursiveDir)/%(FileName)%(Extension)</Link>
+      <PackagePath>runtimes\%(RecursiveDir)/%(FileName)%(Extension)</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Glyphs2Code.props" Pack="true" >
+      <PackagePath>build\$(PackageId).props</PackagePath>
+    </None>
+  </ItemGroup>
+  
+
+</Project>

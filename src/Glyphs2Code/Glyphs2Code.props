@@ -1,0 +1,17 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Glyphs2CodeIsEnabled Condition="'$(Glyphs2CodeIsEnabled)' == ''">true</Glyphs2CodeIsEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup"/>
+    <CompilerVisibleProperty Include="Glyphs2CodeIsEnabled" />
+    <CompilerVisibleProperty Include="RootNamespace" />
+  </ItemGroup>
+  <Target Name="_InjectAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+    <ItemGroup>
+      <AdditionalFiles Include="**\*.ttf" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+      <AdditionalFiles Include="**\*.otf" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+      <AdditionalFiles Include="**\*.woff" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    </ItemGroup>
+  </Target>
+</Project>
