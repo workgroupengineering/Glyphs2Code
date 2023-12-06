@@ -5,6 +5,9 @@
   <ItemGroup>
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup"/>
     <CompilerVisibleProperty Include="Glyphs2CodeIsEnabled" />
+    <CompilerVisibleProperty Include="Glyphs2CodeFilterByPath"/>
+    <CompilerVisibleProperty Include="Glyphs2CodeClassAccessModifier"/>
+    <CompilerVisibleProperty Include="Glyphs2CodeFiledModifier"/>
     <CompilerVisibleProperty Include="RootNamespace" />
   </ItemGroup>
   <Target Name="_InjectAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
