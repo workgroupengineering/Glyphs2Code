@@ -31,10 +31,6 @@
       <PackagePath>build\$(PackageId).props</PackagePath>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="freetype\Handles\" />
-  </ItemGroup>
   
 
 </Project>

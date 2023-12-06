@@ -3,7 +3,7 @@
 /// <summary>
 /// FreeType error  <seealso href="https://freetype.org/freetype2/docs/reference/ft2-basic_types.html#ft_error">codes</seealso>.
 /// </summary>
-internal enum FT_Errors : int
+internal enum FT_Error : int
 {
     /// <summary>No error.</summary>
     Ok = 0x00,
