@@ -12,9 +12,9 @@
   </ItemGroup>
   <Target Name="_InjectAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
     <ItemGroup>
-      <AdditionalFiles Include="**\*.ttf" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-      <AdditionalFiles Include="**\*.otf" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-      <AdditionalFiles Include="**\*.woff" SourceItemGroup="None" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+      <AdditionalFiles Include="**\*.ttf" SourceItemGroup="Glyphs2CodeGroup" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+      <AdditionalFiles Include="**\*.otf" SourceItemGroup="Glyphs2CodeGroup" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+      <AdditionalFiles Include="**\*.woff" SourceItemGroup="Glyphs2CodeGroup" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
     </ItemGroup>
   </Target>
 </Project>

@@ -24,7 +24,7 @@ internal static class GeneratorContextExtensions
             error.Message,
             error.ToString());
 
-    private static void Report(this GeneratorExecutionContext context, string id, string title, string message = null, string description = null) =>
+    private static void Report(this GeneratorExecutionContext context, string id, string title, string? message = null, string? description = null) =>
         context.ReportDiagnostic(
             Diagnostic.Create(
                 new DiagnosticDescriptor(
