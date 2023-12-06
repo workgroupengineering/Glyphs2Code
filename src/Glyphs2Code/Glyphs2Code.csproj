@@ -30,6 +30,10 @@
     <None Include="Glyphs2Code.props" Pack="true">
       <PackagePath>build\$(PackageId).props</PackagePath>
     </None>
+    <None Include="Glyphs2Code.targets" Pack="true">
+      <PackagePath>build\$(PackageId).targets</PackagePath>
+    </None>
+    <None Include="Glyphs2Code.Project.xml" Pack="true" PackagePath="build/"/>
   </ItemGroup>
   
 

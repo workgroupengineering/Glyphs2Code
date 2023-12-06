@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="Glyphs2Code" DisplayName="Glyphs2Code Generator" Order="70" PageTemplate="generic" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+  <Rule.Categories>
+    <Category Name="General" DisplayName="General" />
+  </Rule.Categories>
+
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" HasConfigurationCondition="false" Label="Glyphs2Code" />
+  </Rule.DataSource>
+
+  <!-- General -->
+
+  <BoolProperty Name="Glyphs2CodeIsEnabled"
+                DisplayName="Generate"
+                Description="Enable/Disable Class Generation"
+                Category="General" />
+
+  <StringProperty Name="Glyphs2CodeFilterByPath"
+                  DisplayName="Filter By Path"
+                  Description="The generator will process only font files with paths matching the specified glob pattern(s). Example: */Assets/Fonts/Arial.ttf, *.otf"
+                  Category="General">
+    <StringProperty.Metadata>
+      <NameValuePair Name="DependsOn" Value="Glyphs2Code::Glyphs2CodeIsEnabled" />
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value  "Glyphs2Code" "Glyphs2CodeIsEnabled" True)</NameValuePair.Value>
+      </NameValuePair>
+    </StringProperty.Metadata>
+  </StringProperty>
+
+
+  <EnumProperty Name="Glyphs2CodeClassAccessModifier"
+              DisplayName="Default Class Access Modifier"
+              Description="Defines the access modifiers used for generated members"
+              Category="General">
+    <EnumValue Name="Internal" DisplayName="Internal" Description="The type or member can be accessed by any code in the same assembly, but not from another assembly. In other words, internal types or members can be accessed from code that is part of the same compilation" />
+    <EnumValue Name="Public" DisplayName="Public" Description="The type or member can be accessed by any other code in the same assembly or another assembly that references it. The accessibility level of public members of a type is controlled by the accessibility level of the type itself" />
+    <EnumValue Name="Protected" DisplayName="Protected" Description="The type or member can be accessed only by code in the same class, or in a class that is derived from that class" />
+    <EnumValue Name="Private" DisplayName="Private" Description="TThe type or member can be accessed by types derived from the class that are declared within its containing assembly" />
+    <EnumProperty.Metadata>
+      <NameValuePair Name="DependsOn" Value="Glyphs2Code::Glyphs2CodeIsEnabled" />
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value  "Glyphs2Code" "Glyphs2CodeIsEnabled" True)</NameValuePair.Value>
+      </NameValuePair>
+    </EnumProperty.Metadata>
+  </EnumProperty>
+
+  <EnumProperty Name="FieldAccessModifier"
+            DisplayName="Default Field Access Modifier"
+            Description="Defines the access modifiers used for generated members"
+            Category="General">
+    <EnumValue Name="Internal" DisplayName="Internal" Description="The type or member can be accessed by any code in the same assembly, but not from another assembly. In other words, internal types or members can be accessed from code that is part of the same compilation" />
+    <EnumValue Name="Public" DisplayName="Public" Description="The type or member can be accessed by any other code in the same assembly or another assembly that references it. The accessibility level of public members of a type is controlled by the accessibility level of the type itself" />
+    <EnumValue Name="Protected" DisplayName="Protected" Description="The type or member can be accessed only by code in the same class, or in a class that is derived from that class" />
+    <EnumValue Name="Private" DisplayName="Private" Description="TThe type or member can be accessed by types derived from the class that are declared within its containing assembly" />
+    <EnumProperty.Metadata>
+      <NameValuePair Name="DependsOn" Value="Glyphs2Code::Glyphs2CodeIsEnabled" />
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value  "Glyphs2Code" "Glyphs2CodeIsEnabled" True)</NameValuePair.Value>
+      </NameValuePair>
+    </EnumProperty.Metadata>
+  </EnumProperty>
+  
+</Rule>

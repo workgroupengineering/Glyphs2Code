@@ -1,0 +1,14 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Enable property page if VisualStudioVersion is great or equal 17.0 and Language is'not VB.NET -->
+    <Glyphs2CodePropertyPage Condition="'$(Glyphs2CodePropertyPage)' == '' and '$(VisualStudioVersion)' &gt;= '17.0' and '$(Language)' != 'VB'">true</Glyphs2CodePropertyPage>
+  </PropertyGroup>
+
+  <ItemGroup Label="Glyphs2Code Property Page">
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\Glyphs2Code.Project.xml" Condition="'$(Glyphs2CodePropertyPage)' == 'true'">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+  
+</Project>
